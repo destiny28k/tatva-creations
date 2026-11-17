@@ -1,0 +1,28 @@
+.index { padding-bottom: clamp(56px, 8vw, 112px); }
+.head, .entry summary { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .9fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: baseline; }
+.head { padding-bottom: 12px; border-bottom: 1px solid var(--fg); color: var(--muted); }
+.head span:last-child { text-align: right; }
+.entry { border-bottom: 1px solid var(--line); }
+.entry summary { list-style: none; cursor: pointer; padding-block: 16px; }
+.entry summary::-webkit-details-marker { display: none; }
+.entry summary b { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 3vw, 36px); line-height: 1; display: flex; align-items: center; gap: 12px; min-width: 0; }
+.entry summary b::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--bd); flex: none; }
+.entry summary span { font-size: 15px; min-width: 0; }
+.entry summary span:last-child { text-align: right; color: var(--muted); }
+.entry summary:hover b { font-style: italic; }
+.more { display: grid; gap: 14px; padding: 2px 0 22px 24px; max-width: 640px; }
+.more dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.all { padding-top: 28px; }
+
+/* Pack photo that follows the mouse over the list */
+.preview { position: fixed; left: 0; top: 0; z-index: 22; width: 230px; aspect-ratio: 1 / 1; margin: -115px 0 0 28px; background-size: cover; background-position: center; pointer-events: none; opacity: 0; scale: .6; rotate: -4deg; transition: opacity .25s, scale .4s var(--ease-out); box-shadow: 0 24px 50px rgba(0,0,0,.2); }
+.preview.show { opacity: 1; scale: 1; }
+
+@media (max-width: 680px) {
+  .head { display: none; }
+  .entry summary { grid-template-columns: minmax(0, 1fr) auto; }
+  .entry summary span:nth-child(3) { display: none; }
+  .entry summary span:nth-child(2) { text-align: right; }
+  .entry summary span:last-child { display: none; }
+  .more dl { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+}

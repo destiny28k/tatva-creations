@@ -1,0 +1,8 @@
+/* Copy deterrents: the photo is a background (no image element to save), with a watermark on top. */
+.tile { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border: 0; padding: 0; background: var(--soft); cursor: pointer; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .5s var(--ease-out); -webkit-user-select: none; user-select: none; }
+.tile:hover .img, .tile:focus-visible .img { transform: scale(1.04); }
+
+.watermark::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='160'%3E%3Ctext x='24' y='88' transform='rotate(-28 110 80)' font-family='Arial,sans-serif' font-size='20' font-weight='700' letter-spacing='2' fill='white' fill-opacity='.4' stroke='black' stroke-opacity='.14' stroke-width='.6'%3E%C2%A9 TATVA%3C/text%3E%3C/svg%3E"); }
+
+@media (prefers-reduced-motion: reduce) { .img { transition: none; } }

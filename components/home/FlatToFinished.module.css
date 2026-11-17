@@ -1,0 +1,82 @@
+/* Flat to finished: a die-cut sheet folds itself into a counter display as the page scrolls.
+   Every panel hangs off its fold line, so folding is one rotation per panel, driven by CSS variables. */
+.section { position: relative; background: var(--brand); color: #F3F1EA; }
+.pin { position: sticky; top: 0; height: var(--screen); overflow: hidden; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 24px clamp(24px, 4vw, 64px); padding-left: max(20px, 5vw, env(safe-area-inset-left, 0px)); padding-right: max(20px, 5vw, env(safe-area-inset-right, 0px)); }
+.static .pin { position: static; height: auto; padding-block: clamp(80px, 10vw, 140px); }
+/* Scroll length of the fold: shorter on phones so it never feels endless */
+.pinned { height: 340vh; }
+@media (max-width: 860px) { .pinned { height: 260vh; } }
+
+/* Text and steps */
+.text { display: grid; gap: 18px; align-content: center; min-width: 0; position: relative; z-index: 2; }
+.text > .cap { color: #B9C2DE; }
+.text h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 5.6vw, 88px); line-height: .95; letter-spacing: -.01em; }
+.lead { color: #C9D0E6; max-width: 40ch; }
+.steps { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid rgba(243, 241, 234, .2); }
+.steps li { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); gap: 2px 8px; padding-block: 12px; border-bottom: 1px solid rgba(243, 241, 234, .2); opacity: .4; transition: opacity .4s; }
+.steps li.on { opacity: 1; }
+.steps li.on .n { color: var(--dot); }
+.n { font-size: 12px; letter-spacing: .1em; font-variant-numeric: tabular-nums; padding-top: 5px; }
+.steps b { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.1; }
+.steps span:last-child { grid-column: 2; color: #C9D0E6; font-size: 14.5px; }
+
+/* 3D stage */
+.stage { --w: clamp(190px, 25vw, 340px); position: relative; height: min(78vh, 700px); perspective: 1500px; perspective-origin: 50% 25%; }
+.model { position: absolute; inset: 0; opacity: calc(1 - var(--ph) * .9); transition: opacity .2s; }
+.table { position: absolute; left: 50%; top: 64%; width: 0; height: 0; transform-style: preserve-3d; transform: rotateX(calc(60deg - var(--cam) * 8deg)) rotateZ(calc(-30deg + var(--cam) * 18deg)) scale(calc(1 + var(--cam) * .08)); }
+.shadow { position: absolute; width: calc(var(--w) * 1.5); height: calc(var(--w) * .9); left: calc(var(--w) * -.75); top: calc(var(--w) * -.45); background: radial-gradient(closest-side, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0)); filter: blur(6px); }
+
+.panel { position: absolute; transform-style: preserve-3d; }
+.face { position: absolute; inset: 0; overflow: hidden; backface-visibility: visible; }
+.board { background: #F4F1E8; }
+.art { opacity: var(--art); }
+.cut { border: 1.5px solid #1C2448; opacity: calc(1 - var(--art) * .75); }
+.tag { position: absolute; left: 8px; top: 6px; font-family: var(--body); font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #1C2448; opacity: calc(1 - var(--art)); }
+
+/* Fold lines are dashed orange, as on a real dieline */
+.fold { position: absolute; border: 0 dashed var(--dot); opacity: calc(1 - var(--art) * .8); }
+.foldTop { left: 0; right: 0; top: -1px; border-top-width: 2px; }
+.foldBottom { left: 0; right: 0; bottom: -1px; border-bottom-width: 2px; }
+.foldLeft { top: 0; bottom: 0; left: -1px; border-left-width: 2px; }
+.foldRight { top: 0; bottom: 0; right: -1px; border-right-width: 2px; }
+
+/* Base: the floor of the display */
+.base { width: var(--w); height: calc(var(--w) * .42); left: calc(var(--w) / -2); top: calc(var(--w) * -.21); }
+.base .art { background: #1A2756; display: flex; align-items: center; justify-content: center; gap: 10%; }
+.slot { width: 30%; height: 56%; border: 1.5px dashed rgba(243, 241, 234, .55); }
+
+/* Back panel with an arched header, folds up off the base */
+.back { left: 0; bottom: 100%; width: 100%; height: calc(var(--w) * .82); transform-origin: 50% 100%; transform: rotateX(calc(var(--fb) * -90deg)); }
+.back .face { border-radius: 50% 50% 3px 3px / 26% 26% 3px 3px; }
+.back .art { background: repeating-conic-gradient(from -90deg at 50% 100%, #F5C518 0 7deg, #F8D85A 7deg 14deg); display: grid; place-content: center; text-align: center; gap: calc(var(--w) * .015); color: #23356B; padding-top: 12%; }
+.back .art small { font-family: var(--body); font-size: calc(var(--w) * .032); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.back .art strong { font-family: var(--serif); font-weight: 400; font-size: calc(var(--w) * .14); line-height: .9; }
+.back .art em { font-style: normal; font-family: var(--body); font-size: calc(var(--w) * .03); font-weight: 600; letter-spacing: .06em; }
+
+/* Side wings, hinged on the back panel's edges */
+.wing { bottom: 0; height: 64%; width: calc(var(--w) * .34); }
+.wingL { right: 100%; transform-origin: 100% 50%; transform: rotateY(calc(var(--fw) * 58deg)); }
+.wingR { left: 100%; transform-origin: 0 50%; transform: rotateY(calc(var(--fw) * -58deg)); }
+.wing .art { background: linear-gradient(160deg, #EF7D22, #F5C518); }
+.wing .art::after { content: ""; position: absolute; inset: 14% 18%; border: 2px solid rgba(255, 255, 255, .65); border-radius: 50%; }
+
+/* Front lip, folds up toward the customer */
+.lip { left: 0; top: 100%; width: 100%; height: calc(var(--w) * .16); transform-origin: 50% 0; transform: rotateX(calc(var(--fl) * 78deg)); }
+.lip .art { background: var(--magenta, #C2185B); color: #FFF0F5; display: grid; place-items: center; font-family: var(--body); font-size: calc(var(--w) * .036); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+
+/* The real piece, fading in at the end */
+.photo { position: absolute; inset: 6% 6% 10%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 14px; opacity: var(--ph); pointer-events: none; }
+.photo.live { pointer-events: auto; }
+.photo .img { position: relative; overflow: hidden; box-shadow: 0 40px 80px rgba(0, 0, 0, .35); background-size: cover; background-position: center; transform: scale(calc(.92 + var(--ph) * .08)); }
+.photo p { color: #C9D0E6; }
+.photo a { color: #F3F1EA; border-bottom: 1px solid currentColor; display: inline-block; padding-block: 10px 4px; }
+
+@media (max-width: 860px) {
+  .pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); align-content: start; padding-block: 72px 16px; }
+  .text h2 { font-size: clamp(34px, 9vw, 52px); }
+  .lead, .steps span:last-child { display: none; }
+  .steps li { padding-block: 6px; }
+  .steps b { font-size: 19px; }
+  .stage { --w: clamp(150px, 46vw, 240px); height: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .steps li, .model { transition: none; } }

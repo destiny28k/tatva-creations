@@ -1,20 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   experimental: {
     agentFeedback: true,
   },
   cacheComponents: true,
   partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  // The Tailwind loader rule that create-next-app added is removed: the site does not use Tailwind,
+  // and the rule renamed every .module.css file to plain CSS, which broke CSS Modules.
 };
 
 export default nextConfig;

@@ -1,0 +1,20 @@
+/* The screen pins while the category word, colour and photo change with scroll */
+/* Height is set inline from the number of words, about 60vh of scrolling per word. */
+.swap { position: relative; --sbg: #D8343B; --sfg: #FFF4E6; }
+.swap.static { height: auto; }
+.pin { position: sticky; top: 0; height: var(--screen); overflow: hidden; background: var(--sbg); color: var(--sfg); transition: background-color .6s, color .6s; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 24px; padding-left: max(20px, 6vw, env(safe-area-inset-left, 0px)); padding-right: max(20px, 6vw, env(safe-area-inset-right, 0px)); }
+.swap.static .pin { position: static; height: auto; min-height: 70vh; padding-block: 64px; }
+.text { display: grid; gap: 14px; min-width: 0; position: relative; z-index: 2; }
+.words { position: relative; height: 1.1em; font-family: var(--serif); font-size: clamp(64px, 12.5vw, 220px); line-height: 1.1; letter-spacing: -.02em; }
+.words span { position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0; transform: translateY(60%); transition: transform .7s var(--ease-out), opacity .45s; }
+.words span.on { opacity: 1; transform: none; }
+.words span.was { transform: translateY(-60%); }
+.photo { position: relative; justify-self: center; width: min(100%, 52vh); aspect-ratio: 1 / 1; rotate: 5deg; box-shadow: 0 40px 80px rgba(0,0,0,.28); overflow: hidden; }
+.photo i { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; scale: 1.1; transition: opacity .6s, scale .9s var(--ease-out); }
+.photo i.on { opacity: 1; scale: 1; }
+.count { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .pin { grid-template-columns: minmax(0, 1fr); align-content: center; gap: 36px; }
+  .photo { width: min(72vw, 40vh); }
+}

@@ -1,0 +1,12 @@
+.play { padding-bottom: clamp(56px, 8vw, 112px); display: grid; gap: 28px; }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 12px 32px; flex-wrap: wrap; width: 100%; }
+.head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5.4vw, 76px); line-height: .98; letter-spacing: -.01em; }
+.head .cap { color: var(--muted); }
+.arena { position: relative; height: clamp(420px, 70vh, 680px); background: var(--soft); overflow: hidden; }
+/* Phones: a shorter box with fewer stickers, so there is room to throw them */
+@media (max-width: 600px) {
+  .arena { height: 62svh; min-height: 380px; }
+  .sticker:nth-child(n + 8) { display: none; }
+}
+.sticker { position: absolute; left: 0; top: 0; width: clamp(96px, 14vw, 170px); aspect-ratio: 1 / 1; border-radius: 18px; border: 5px solid #fff; background-size: cover; background-position: center; box-shadow: 0 10px 26px rgba(0,0,0,.18); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; will-change: transform; }
+.held { cursor: grabbing; box-shadow: 0 24px 50px rgba(0,0,0,.28); }

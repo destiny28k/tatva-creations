@@ -1,0 +1,22 @@
+/* Desktop: the section pins and the projects travel sideways while the page scrolls down.
+   Phones and reduced motion: a normal swipeable row (.native). */
+.reel { position: relative; }
+.pin { position: sticky; top: 0; height: var(--screen); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--soft); }
+.head { display: flex; justify-content: space-between; gap: 16px; width: 100%; padding-block: 26px 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+.track { display: flex; align-items: center; gap: clamp(40px, 7vw, 120px); width: max-content; padding-inline: clamp(20px, 6vw, 96px); will-change: transform; }
+.item { flex: none; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: end; width: min(88vw, 1040px); }
+.image { height: min(62vh, 560px); width: auto; }
+.text { display: grid; gap: 14px; padding-bottom: 6px; min-width: 0; justify-items: start; }
+.text .cap { color: var(--muted); font-variant-numeric: tabular-nums; }
+.text h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5.2vw, 84px); line-height: .95; letter-spacing: -.01em; }
+.text p:not(.cap) { color: var(--muted); max-width: 34ch; }
+.link { font: 500 12.5px var(--body); letter-spacing: .12em; text-transform: uppercase; background: none; border: 0; border-bottom: 1px solid var(--fg); padding: 4px 0; color: var(--fg); cursor: pointer; }
+@media (hover: none) { .link { padding-block: 12px 6px; } }
+.bar { height: 2px; background: var(--line); margin: 0 clamp(20px, 6vw, 96px) 28px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--fg); }
+
+.native .pin { position: static; height: auto; }
+.native .track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 20px 32px; align-items: start; gap: 20px; }
+.native .item { scroll-snap-align: center; grid-template-columns: minmax(0, 1fr); width: min(78vw, 420px); }
+.native .image { height: auto; width: 100%; }
+.native .bar, .native .counter { display: none; }

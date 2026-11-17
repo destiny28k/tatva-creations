@@ -1,0 +1,81 @@
+/* Small looping illustrations for the service cards. Brand colours from the Tatva logo.
+   Animations run only while the card is on screen or hovered (the parent adds .play). */
+.art { width: 100%; height: 100%; display: block; overflow: visible; }
+.art * { animation-play-state: paused; }
+:global(.svc-play) .art * { animation-play-state: running; }
+
+.line { fill: none; stroke: #23356B; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.thin { fill: none; stroke: #23356B; stroke-width: 1.4; stroke-linecap: round; opacity: .35; }
+.navy { fill: #23356B; }
+.orange { fill: #EF7D22; }
+.yellow { fill: #F5C518; }
+.olive { fill: #7E8C2D; }
+.magenta { fill: #C2185B; }
+.paper { fill: #fff; stroke: #23356B; stroke-width: 2.2; stroke-linejoin: round; }
+.cell { fill: #23356B; opacity: .2; }
+
+/* Concept: the bulb lights up and its rays pulse */
+.glow { fill: #F5C518; opacity: .15; animation: glow 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes glow { 50% { opacity: .55; transform: scale(1.08); } }
+.ray { stroke: #EF7D22; stroke-width: 2.6; stroke-linecap: round; animation: ray 2.4s ease-in-out infinite; opacity: .2; }
+@keyframes ray { 50% { opacity: 1; } }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s ease-in-out infinite; }
+@keyframes draw { 40%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+
+/* Packaging: flaps open and a product pops up */
+.flapL { transform-box: fill-box; transform-origin: 100% 100%; animation: flapL 3s ease-in-out infinite; }
+.flapR { transform-box: fill-box; transform-origin: 0 100%; animation: flapR 3s ease-in-out infinite; }
+@keyframes flapL { 0%, 15% { transform: rotate(0); } 35%, 75% { transform: rotate(-125deg); } 95%, 100% { transform: rotate(0); } }
+@keyframes flapR { 0%, 15% { transform: rotate(0); } 35%, 75% { transform: rotate(125deg); } 95%, 100% { transform: rotate(0); } }
+.pop { transform-box: fill-box; animation: pop 3s ease-in-out infinite; }
+@keyframes pop { 0%, 30% { transform: translateY(26px); opacity: 0; } 45%, 70% { transform: translateY(-6px); opacity: 1; } 85%, 100% { transform: translateY(26px); opacity: 0; } }
+
+/* Print: calendar pages flip over */
+.page { transform-box: fill-box; transform-origin: 50% 0; animation: flip 2.6s ease-in infinite; }
+.page2 { animation-delay: 1.3s; }
+@keyframes flip { 0%, 40% { transform: scaleY(1); opacity: 1; } 75% { transform: scaleY(-.2); opacity: .9; } 76%, 100% { transform: scaleY(1); opacity: 0; } }
+
+/* Paper engineering: a pop-up rises as the card opens */
+.leafL { transform-box: fill-box; transform-origin: 100% 100%; animation: leafL 3.2s ease-in-out infinite; }
+.leafR { transform-box: fill-box; transform-origin: 0 100%; animation: leafR 3.2s ease-in-out infinite; }
+@keyframes leafL { 0%, 10% { transform: skewY(0) scaleX(.15); } 40%, 75% { transform: skewY(-8deg) scaleX(1); } 95%, 100% { transform: skewY(0) scaleX(.15); } }
+@keyframes leafR { 0%, 10% { transform: skewY(0) scaleX(.15); } 40%, 75% { transform: skewY(8deg) scaleX(1); } 95%, 100% { transform: skewY(0) scaleX(.15); } }
+.rise { transform-box: fill-box; transform-origin: 50% 100%; animation: rise 3.2s ease-in-out infinite; }
+@keyframes rise { 0%, 25% { transform: scaleY(0); } 50%, 75% { transform: scaleY(1); } 95%, 100% { transform: scaleY(0); } }
+
+/* Production: rollers turn and a sheet runs through, picking up CMYK */
+.roll { transform-box: fill-box; transform-origin: center; animation: spin 1.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sheet { animation: feedSheet 2.4s linear infinite; }
+@keyframes feedSheet { from { transform: translateX(-70px); } to { transform: translateX(90px); } }
+
+/* Execution: the truck drives, the road moves */
+.road { stroke: #23356B; stroke-width: 2.2; stroke-dasharray: 10 8; animation: road .6s linear infinite; opacity: .5; }
+@keyframes road { to { stroke-dashoffset: 18; } }
+.truck { animation: bump .3s ease-in-out infinite alternate; }
+@keyframes bump { to { transform: translateY(-1.5px); } }
+.wheel { transform-box: fill-box; transform-origin: center; animation: spin .6s linear infinite; }
+.check { stroke: #7E8C2D; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s ease-in-out infinite; }
+
+/* ERP: data dots run from every module to the core */
+.dot { animation: blink 1.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+
+/* Web: blocks build up one by one, the cursor clicks */
+.block { opacity: 0; animation: block 3.2s ease-in-out infinite; }
+@keyframes block { 0%, 5% { opacity: 0; transform: translateY(6px); } 20%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.cursor { animation: cursor 3.2s ease-in-out infinite; }
+@keyframes cursor { 0%, 40% { transform: translate(0, 0); } 60%, 75% { transform: translate(-46px, -28px); } 100% { transform: translate(0, 0); } }
+
+/* Marketing: bars grow and the trend line climbs */
+.bar { transform-box: fill-box; transform-origin: 50% 100%; animation: bar 2.8s ease-in-out infinite; }
+@keyframes bar { 0%, 10% { transform: scaleY(.15); } 45%, 80% { transform: scaleY(1); } 100% { transform: scaleY(.15); } }
+.trend { stroke: #C2185B; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.8s ease-in-out infinite; }
+
+/* Social: the feed scrolls, hearts float up */
+.feed { animation: scrollFeed 3s linear infinite; }
+@keyframes scrollFeed { to { transform: translateY(-34px); } }
+.heart { animation: heart 2.4s ease-out infinite; opacity: 0; }
+@keyframes heart { 0% { opacity: 0; transform: translateY(0) scale(.6); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-46px) scale(1.1); } }
+
+@media (prefers-reduced-motion: reduce) { .art * { animation: none !important; } .block, .heart { opacity: 1; } .draw, .check, .trend { stroke-dashoffset: 0; } }

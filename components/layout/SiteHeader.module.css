@@ -1,0 +1,16 @@
+.top { position: absolute; inset: 0 0 auto 0; z-index: 4; }
+.inner { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-block: 20px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.logo { display: block; line-height: 0; }
+.logo img { width: auto; height: 34px; }
+.nav { display: flex; gap: 8px 30px; flex-wrap: wrap; }
+.nav a { font-size: 12.5px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; padding-block: 6px; background: linear-gradient(var(--fg), var(--fg)) left bottom / 0 1px no-repeat; transition: background-size .3s; }
+.nav a:hover { background-size: 100% 1px; }
+
+/* Phones use the floating menu button instead (MobileMenu); keep only the logo here */
+@media (max-width: 860px) {
+  .inner { padding-block: 22px; padding-right: 84px; }
+  .logo img { height: 30px; }
+  .nav, .cta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .nav a { transition: none; } }

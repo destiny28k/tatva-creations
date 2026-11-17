@@ -1,0 +1,49 @@
+.section { padding-block: clamp(72px, 10vw, 140px) clamp(48px, 7vw, 96px); display: grid; gap: clamp(28px, 4vw, 48px); }
+
+.head { display: flex; justify-content: space-between; align-items: end; gap: 20px 40px; flex-wrap: wrap; }
+.titles { display: grid; gap: 14px; }
+.titles > :global(.cap) { color: var(--muted); }
+.titles h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 6vw, 96px); line-height: .95; letter-spacing: -.01em; max-width: 14ch; }
+
+/* Switch between the two groups; the dark pill slides under the active one */
+.switch { position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 5px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
+.switch button { position: relative; z-index: 1; border: 0; background: none; padding: 12px 22px; border-radius: 999px; font: 500 12.5px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap; transition: color .3s; }
+.switch button[aria-pressed="true"] { color: #fff; }
+.thumb { position: absolute; z-index: 0; top: 5px; bottom: 5px; left: 5px; width: calc((100% - 10px) / var(--n)); border-radius: 999px; background: var(--brand); transform: translateX(calc(var(--i) * 100%)); transition: transform .5s var(--ease-out); }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { position: relative; display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #fff; transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .3s; animation: cardIn .7s var(--ease-out) both; animation-delay: calc(var(--k) * 70ms); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(24px) scale(.98); } }
+.card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(35, 53, 107, .14); border-color: transparent; }
+.artBox { position: relative; aspect-ratio: 10 / 7; background: var(--tint); padding: 8% 10%; }
+.num { position: absolute; left: 14px; top: 12px; font-size: 11px; font-weight: 600; letter-spacing: .14em; color: #23356B; opacity: .55; font-variant-numeric: tabular-nums; }
+.body { padding: 18px 20px 22px; display: grid; gap: 8px; align-content: start; }
+.body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.3vw, 32px); line-height: 1.05; }
+.body p { color: var(--muted); font-size: 15px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tags span { font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--soft); color: var(--fg); }
+
+.swipe { display: none; }
+
+@media (max-width: 1000px) { .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Phones: the cards become one swipeable row instead of a tall stack */
+@media (max-width: 600px) {
+  .section { gap: 22px; }
+  .head { gap: 18px; }
+  .switch { display: grid; width: 100%; }
+  .switch button { padding: 12px 10px; font-size: 11px; }
+  .grid, .grid.four { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin-inline: -20px; padding: 4px 20px 8px; scrollbar-width: none; }
+  .grid::-webkit-scrollbar { display: none; }
+  .card { flex: 0 0 84%; scroll-snap-align: center; }
+  .card:hover { transform: none; box-shadow: none; border-color: var(--line); }
+  .swipe { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; color: var(--muted); }
+  .progress { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .progress i { display: block; height: 100%; background: var(--brand); transition: width .3s var(--ease-out); }
+  .arrows { display: flex; gap: 6px; }
+  .arrows button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--fg); font-size: 18px; cursor: pointer; }
+  .arrows button:disabled { opacity: .35; }
+}
+@media (prefers-reduced-motion: reduce) { .card { animation: none; transition: none; } .thumb { transition: none; } }

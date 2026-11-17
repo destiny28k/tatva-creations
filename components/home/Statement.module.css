@@ -1,0 +1,10 @@
+.state { padding-block: clamp(56px, 8vw, 112px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 28px 48px; align-items: end; }
+.state h2 { font-size: clamp(28px, 4.4vw, 58px); line-height: 1.08; letter-spacing: -.02em; max-width: 20ch; }
+.state p { color: var(--muted); max-width: 40ch; }
+.muted { color: var(--muted); }
+
+/* Read-along: words start grey and turn black as you scroll, only when motion is allowed */
+html[data-motion] .word { color: #C6C6C2; transition: color .3s; }
+html[data-motion] .word[data-on] { color: var(--fg); }
+
+@media (max-width: 760px) { .state { grid-template-columns: minmax(0, 1fr); } }

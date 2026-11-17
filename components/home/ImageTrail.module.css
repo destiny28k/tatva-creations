@@ -1,0 +1,5 @@
+.trail { position: relative; overflow: hidden; min-height: min(80svh, 760px); display: grid; place-items: center; align-content: center; gap: 22px; text-align: center; background: #131312; color: #F4F4F2; padding: 64px max(20px, env(safe-area-inset-right, 0px)) 64px max(20px, env(safe-area-inset-left, 0px)); }
+.trail h2 { position: relative; z-index: 2; font-family: var(--serif); font-weight: 400; font-size: clamp(54px, 10.5vw, 176px); line-height: .92; letter-spacing: -.02em; color: #fff; mix-blend-mode: difference; pointer-events: none; }
+.hint { position: relative; z-index: 2; color: #A9A9A5; pointer-events: none; min-height: 1.6em; }
+.layer { position: absolute; inset: 0; pointer-events: none; }
+.image { position: absolute; z-index: 1; background-size: cover; background-position: center; pointer-events: none; box-shadow: 0 20px 44px rgba(0,0,0,.4); }

@@ -1,0 +1,7 @@
+.mega { font-family: var(--serif); font-size: clamp(120px, 31vw, 480px); line-height: .8; letter-spacing: -.03em; text-align: center; white-space: nowrap; overflow: hidden; padding-top: clamp(40px, 6vw, 80px); color: var(--brand); }
+.stripe { display: grid; grid-template-columns: repeat(5, 1fr); height: 8px; margin-top: clamp(20px, 3vw, 36px); }
+.bottom { padding-block: 26px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; color: var(--muted); font-size: 13.5px; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.links a { color: var(--fg); border-bottom: 1px solid var(--line); }
+@media (hover: none) { .links a { padding-block: 10px; } }
+.links a:hover { border-color: var(--fg); }

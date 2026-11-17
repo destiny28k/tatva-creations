@@ -1,0 +1,21 @@
+.proof { padding-block: clamp(40px, 6vw, 72px) 0; display: grid; gap: 28px; }
+.proof > .cap, .label { color: var(--muted); }
+.logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.logo { display: grid; place-items: center; height: 104px; padding: 16px 18px; border: 1px solid var(--line); background: #fff; transition: border-color .3s, transform .3s var(--ease-out); }
+.logo:hover { border-color: var(--fg); transform: translateY(-3px); }
+.logo img { width: auto; height: auto; max-width: 100%; max-height: 64px; object-fit: contain; pointer-events: none; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px 40px; border-top: 1px solid var(--fg); padding-top: 22px; }
+.stat { display: grid; gap: 6px; align-content: start; }
+.stat b { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 7vw, 96px); line-height: .9; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); max-width: 26ch; }
+
+/* Phones: three logos per row and the three numbers side by side, so the section stays short */
+@media (max-width: 600px) {
+  .proof { gap: 20px; }
+  .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .logo { height: 68px; padding: 10px; }
+  .logo img { max-height: 40px; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 16px; }
+  .stat b { font-size: 44px; }
+  .stat span { font-size: 12.5px; line-height: 1.4; }
+}
